@@ -1,0 +1,19 @@
+[project]
+name = "marketplace"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Dilshod A'zamjonov", email = "dilshod1526@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.146.0",
+    "psycopg[binary]",
+    "python-dotenv>=1.2.4",
+    "sqlalchemy>=2.1.5",
+    "uvicorn>=0.54.0",
+]
+
+[tool.uv]
+package = false
