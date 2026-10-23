@@ -1,0 +1,7 @@
+uv export --format requirements.txt --no-emit-project --output-file requirements.txt
+
+uv run alembic revision --autogenerate -m "users: date_of_birth, required email"
+
+docker compose up -d --build # without logs build
+
+docker compose logs -f <service> # logs

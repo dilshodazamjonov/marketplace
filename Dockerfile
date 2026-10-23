@@ -1,11 +1,18 @@
 FROM python:3.13-slim
 
-WORKDIR /projects/marketplace/backend
+COPY --from=ghcr.io/astral-sh/uv:0.12.11 /uv /uvx /bin/
 
-COPY requirements.txt .
+WORKDIR /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PATH="/app/.venv/bin:$PATH"
 
-COPY ./backend ./backend
+COPY pyproject.toml uv.lock ./
+RUN uv sync --locked --no-dev
 
-CMD [ "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000" ]
+COPY alembic.ini .
+COPY migrations ./migrations
+COPY backend ./backend
+
+CMD ["sh", "-c", "alembic upgrade head && uvicorn backend.main:app --host 0.0.0.0 --port 8000"]
