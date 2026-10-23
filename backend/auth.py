@@ -1,13 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from datetime import date
 
 from backend.sql.users import User
 from backend.sql.base import get_db
-
-from datetime import date
-
 from backend.utils.auth_utils import password_hasher
+from backend.utils.jwt import create_access_token
 from backend.models import UserModel, UserLogin
 
 router = APIRouter(prefix='/auth', tags=["auth"])
@@ -85,4 +84,9 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
             detail="Invalid email or password"    
         )
 
-    
+    access_token = create_access_token(str(existing_user.id))
+
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
