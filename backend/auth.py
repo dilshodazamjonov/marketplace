@@ -5,7 +5,7 @@ from datetime import date
 
 from backend.sql.users import User
 from backend.sql.base import get_db
-from backend.utils.auth_utils import password_hasher
+from backend.utils.auth_utils import password_hasher, get_current_user
 from backend.utils.jwt import create_access_token
 from backend.models import UserModel, UserLogin
 
@@ -90,3 +90,15 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         "access_token": access_token,
         "token_type": "bearer"
     }
+
+@router.get('/me', status_code=200)
+def get_me(current_user: User = Depends(get_current_user)):
+
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email,
+        "date_of_birth": current_user.date_of_birth,
+        "created_at": current_user.created_at
+    }
+
