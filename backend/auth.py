@@ -7,7 +7,7 @@ from backend.sql.users import User
 from backend.sql.base import get_db
 from backend.utils.auth_utils import password_hasher, get_current_user
 from backend.utils.jwt import create_access_token
-from backend.models import UserModel, UserLogin
+from backend.models.auth import UserModel, UserLogin
 
 router = APIRouter(prefix='/auth', tags=["auth"])
 
@@ -50,6 +50,7 @@ def registration(user: UserModel, db: Session = Depends(get_db)):
         username=user.username,
         email=user.email,
         date_of_birth=user.date_of_birth,
+        user_type=user.user_type,
         password_hash = hashed_password
     )
 
