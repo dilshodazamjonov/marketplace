@@ -1,3 +1,4 @@
+import os
 import hashlib
 import secrets
 import uuid
@@ -13,6 +14,9 @@ from backend.utils.jwt import ACCESS_TOKEN_SECONDS, create_access_token
 REFRESH_TOKEN_TTL = timedelta(days=7)
 REUSE_GRACE = timedelta(seconds=30)
 
+# Secure cookies are only sent over https: set COOKIE_SECURE=true once the site has it.
+COOKIE_SECURE = os.getenv("COOKIE_SECURE", "false").lower() == "true"
+
 def hash_token(token: str) -> str:
     return hashlib.sha256(token.encode()).hexdigest()
 
@@ -24,8 +28,8 @@ def issue_refresh_token(db: Session, user_id, family_id=None) -> str:
 
 def set_access_cookie(response: Response, user_id) -> None:
     response.set_cookie("access_token", create_access_token(str(user_id)), httponly=True,
-                        samesite="strict", max_age=ACCESS_TOKEN_SECONDS, path="/")
+                        samesite="strict", secure=COOKIE_SECURE, max_age=ACCESS_TOKEN_SECONDS, path="/")
 
 def set_refresh_cookie(response: Response, token: str) -> None:
-    response.set_cookie("refresh_token", token, httponly=True, samesite="strict",
+    response.set_cookie("refresh_token", token, httponly=True, samesite="strict", secure=COOKIE_SECURE,
                         max_age=int(REFRESH_TOKEN_TTL.total_seconds()), path="/auth")

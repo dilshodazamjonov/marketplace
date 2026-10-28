@@ -50,7 +50,8 @@ def get_current_user(
 
     user = db.get(User, user_id)
 
-    if user is None:
+    # Suspended users are signed out on their next request.
+    if user is None or not user.is_active:
         raise credentials_exception
 
     return user

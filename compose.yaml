@@ -6,9 +6,17 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      # Rate limiting is off while testing. Uncomment before deploying.
+      # REDIS_URL: redis://redis:6379/0
+      # Set COOKIE_SECURE=true in .env once the site is served over https.
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      # Trust X-Forwarded-For so request.client.host is the real client IP (nginx sets it).
+      FORWARDED_ALLOW_IPS: "*"
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
 
   db:
     image: postgres:17
@@ -35,6 +43,10 @@ services:
       - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - api
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
 
 volumes:
   postgres_data:
