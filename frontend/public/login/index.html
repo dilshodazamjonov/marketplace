@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Sign in · Marketplace</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <script type="module" src="/js/pages/login.js"></script>
+</head>
+<body>
+  <div class="auth">
+    <main class="auth__main">
+      <a class="brand" href="/">
+        <span class="brand__mark"><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#mark"/></svg></span>
+        Marketplace
+      </a>
+
+      <div class="auth__panel">
+        <div class="auth__heading">
+          <h1>Welcome back</h1>
+          <p>Sign in to continue to your workspace.</p>
+          <div class="page-notice" id="page-notice" role="status"></div>
+        </div>
+
+        <form class="form" id="login-form" method="post">
+          <div data-form-alert role="alert" hidden></div>
+
+          <div class="field">
+            <label class="field__label" for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required aria-describedby="email-error">
+            <p class="field__error" id="email-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="password">Password</label>
+            <div class="input-group">
+              <input class="input" id="password" name="password" type="password" autocomplete="current-password" required aria-describedby="password-error">
+              <button class="input-group__action" type="button" data-password-toggle aria-controls="password" aria-pressed="false" aria-label="Show password">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#eye"/></svg>
+              </button>
+            </div>
+            <p class="field__error" id="password-error" hidden></p>
+          </div>
+
+          <button class="button button--block" type="submit" data-busy-label="Signing in…" disabled>Sign in</button>
+        </form>
+
+        <p class="auth__switch">Don't have an account? <a href="/register/">Create one</a></p>
+      </div>
+    </main>
+
+    <aside class="auth__aside">
+      <div class="showcase">
+        <p class="showcase__eyebrow">Marketplace</p>
+        <h2 class="showcase__title">Everything you need to buy and sell.</h2>
+        <ul class="showcase__list">
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#check"/></svg>List a product in under a minute</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#check"/></svg>Browse the catalog by category</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#check"/></svg>Separate workspaces for buyers, sellers and admins</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

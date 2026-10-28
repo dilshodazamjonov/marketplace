@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Categories · Marketplace</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <script type="module" src="/js/pages/admin.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="boot" id="page-status" role="status">
+    <span class="spinner" aria-hidden="true"></span>
+    <span class="visually-hidden">Loading…</span>
+  </div>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="app__body">
+      <main class="page" id="main">
+        <header class="page-header">
+          <div>
+            <h1>Categories</h1>
+            <p>Sellers file every listing under one of these.</p>
+          </div>
+          <button class="button" type="button" data-dialog-open="category-dialog">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#plus"/></svg>
+            New category
+          </button>
+        </header>
+
+        <div class="toolbar">
+          <label class="search">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#search"/></svg>
+            <input class="input" id="category-search" type="search" placeholder="Search categories" aria-label="Search categories" autocomplete="off">
+          </label>
+          <p class="toolbar__count" id="category-count" aria-live="polite"></p>
+        </div>
+
+        <div id="categories"></div>
+      </main>
+    </div>
+  </div>
+
+  <dialog class="dialog" id="category-dialog" aria-labelledby="category-dialog-title">
+    <!-- Follows CategoryBase (backend/models/category.py): 1 to 200 characters, trimmed by the API. -->
+    <form class="dialog__panel" id="category-form" method="post">
+      <header class="dialog__header">
+        <div>
+          <h2 class="dialog__title" id="category-dialog-title">New category</h2>
+          <p class="dialog__description">Names must be unique, for example “Phones”.</p>
+        </div>
+        <button class="icon-button" type="button" data-dialog-close aria-label="Close">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#x"/></svg>
+        </button>
+      </header>
+
+      <div class="dialog__body">
+        <div data-form-alert role="alert" hidden></div>
+        <div class="field">
+          <label class="field__label" for="name">Name</label>
+          <input class="input" id="name" name="name" type="text" maxlength="200" autocomplete="off" required autofocus aria-describedby="name-error">
+          <p class="field__error" id="name-error" hidden></p>
+        </div>
+      </div>
+
+      <footer class="dialog__footer">
+        <button class="button button--secondary" type="button" data-dialog-close>Cancel</button>
+        <button class="button" type="submit" data-busy-label="Creating…" disabled>Create category</button>
+      </footer>
+    </form>
+  </dialog>
+</body>
+</html>

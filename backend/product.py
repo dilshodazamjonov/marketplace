@@ -37,3 +37,11 @@ def create_product(
     db.refresh(new_product)
 
     return ProductResponse.model_validate(new_product)
+
+
+@router.get(path='/list', response_model=list[ProductResponse], dependencies=[Depends(get_current_user)])
+def list_products(db: Session = Depends(get_db)):
+
+    return db.scalars(
+        select(Product).order_by(Product.created_at.desc())
+    ).all()

@@ -1,0 +1,83 @@
+/* Design tokens. Components only use these variables.
+   light-dark() picks the value for the active colour scheme: the system's, unless the theme
+   switch has set data-theme on <html> (applied before first paint by js/theme-init.js). */
+:root {
+  color-scheme: light dark;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.8125rem;  /* 13px */
+  --text-base: 0.875rem; /* 14px */
+  --text-md: 1rem;       /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.5rem;     /* 24px */
+  --text-2xl: 2rem;      /* 32px */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  --sidebar-width: 15rem;
+  --content-width: 72rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration: 150ms;
+
+  /* Neutrals */
+  --bg: light-dark(#f7f7f8, #0b0b0c);
+  --surface: light-dark(#ffffff, #141416);
+  --surface-2: light-dark(#f4f4f5, #1c1c1f);
+  --surface-3: light-dark(#e9e9ec, #27272b);
+  --border: light-dark(#e6e6e9, #26262a);
+  --border-strong: light-dark(#d4d4d8, #3a3a40);
+  --text: light-dark(#18181b, #f4f4f5);
+  --text-2: light-dark(#52525b, #a1a1aa);
+  --text-3: light-dark(#71717a, #85858f);
+
+  /* Actions and brand */
+  --primary: light-dark(#18181b, #f4f4f5);
+  --primary-hover: light-dark(#2f2f35, #d9d9de);
+  --on-primary: light-dark(#fafafa, #18181b);
+  --accent: light-dark(#0f766e, #2dd4bf);
+  --brand-from: #2dd4bf;
+  --brand-to: #0f766e;
+
+  /* Status */
+  --danger: light-dark(#dc2626, #f87171);
+  --success: light-dark(#15803d, #4ade80);
+  --info: light-dark(#2563eb, #60a5fa);
+
+  /* Roles */
+  --role-buyer: light-dark(#2563eb, #60a5fa);
+  --role-seller: light-dark(#b45309, #fbbf24);
+  --role-admin: light-dark(#7c3aed, #a78bfa);
+
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+  --shadow-xs: 0 1px 2px light-dark(rgb(16 16 20 / 0.05), rgb(0 0 0 / 0.4));
+  --shadow-sm: 0 1px 3px light-dark(rgb(16 16 20 / 0.08), rgb(0 0 0 / 0.45)),
+    0 1px 2px light-dark(rgb(16 16 20 / 0.04), rgb(0 0 0 / 0.3));
+  --shadow-lg: 0 24px 48px -12px light-dark(rgb(16 16 20 / 0.18), rgb(0 0 0 / 0.6)),
+    0 8px 16px -8px light-dark(rgb(16 16 20 / 0.08), rgb(0 0 0 / 0.4));
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

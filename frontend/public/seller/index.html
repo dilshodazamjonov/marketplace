@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Listings · Marketplace</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <script type="module" src="/js/pages/seller.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="boot" id="page-status" role="status">
+    <span class="spinner" aria-hidden="true"></span>
+    <span class="visually-hidden">Loading…</span>
+  </div>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="app__body">
+      <main class="page" id="main">
+        <header class="page-header">
+          <div>
+            <h1>Listings</h1>
+            <p>Products you sell. Buyers see them in the catalog.</p>
+          </div>
+          <button class="button" type="button" data-dialog-open="listing-dialog">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#plus"/></svg>
+            New listing
+          </button>
+        </header>
+
+        <div class="toolbar">
+          <label class="search">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#search"/></svg>
+            <input class="input" id="listing-search" type="search" placeholder="Search listings" aria-label="Search listings" autocomplete="off">
+          </label>
+          <p class="toolbar__count" id="listing-count" aria-live="polite"></p>
+        </div>
+
+        <div id="listings"></div>
+      </main>
+    </div>
+  </div>
+
+  <dialog class="dialog dialog--wide" id="listing-dialog" aria-labelledby="listing-dialog-title">
+    <!-- Fields and limits follow ProductBase (backend/models/product.py). -->
+    <form class="dialog__panel" id="listing-form" method="post">
+      <header class="dialog__header">
+        <div>
+          <h2 class="dialog__title" id="listing-dialog-title">New listing</h2>
+          <p class="dialog__description">Buyers see it in the catalog as soon as you publish.</p>
+        </div>
+        <button class="icon-button" type="button" data-dialog-close aria-label="Close">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#x"/></svg>
+        </button>
+      </header>
+
+      <div class="dialog__body">
+        <div data-form-alert role="alert" hidden></div>
+
+        <div class="field">
+          <label class="field__label" for="title">Title</label>
+          <input class="input" id="title" name="title" type="text" maxlength="200" required autofocus aria-describedby="title-error">
+          <p class="field__error" id="title-error" hidden></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="description">Description</label>
+          <textarea class="textarea" id="description" name="description" rows="4" required aria-describedby="description-error"></textarea>
+          <p class="field__error" id="description-error" hidden></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="price">Price</label>
+            <input class="input" id="price" name="price" type="number" inputmode="decimal" min="0.01" max="99999999.99" step="0.01" placeholder="0.00" required aria-describedby="price-error">
+            <p class="field__error" id="price-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="condition">Condition</label>
+            <input class="input" id="condition" name="condition" type="text" list="conditions" maxlength="200" placeholder="New, Good, …" required aria-describedby="condition-error">
+            <datalist id="conditions">
+              <option value="New"></option>
+              <option value="Like new"></option>
+              <option value="Good"></option>
+              <option value="Fair"></option>
+              <option value="For parts"></option>
+            </datalist>
+            <p class="field__error" id="condition-error" hidden></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="category_id">Category</label>
+          <select class="select" id="category_id" name="category_id" required aria-describedby="category_id-hint category_id-error">
+            <option value="">Loading categories…</option>
+          </select>
+          <p class="field__hint" id="category_id-hint"></p>
+          <p class="field__error" id="category_id-error" hidden></p>
+        </div>
+      </div>
+
+      <footer class="dialog__footer">
+        <button class="button button--secondary" type="button" data-dialog-close>Cancel</button>
+        <button class="button" type="submit" data-busy-label="Publishing…" disabled>Publish listing</button>
+      </footer>
+    </form>
+  </dialog>
+</body>
+</html>

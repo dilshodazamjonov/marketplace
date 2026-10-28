@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Create an account · Marketplace</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <script type="module" src="/js/pages/register.js"></script>
+</head>
+<body>
+  <div class="auth">
+    <main class="auth__main">
+      <a class="brand" href="/">
+        <span class="brand__mark"><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#mark"/></svg></span>
+        Marketplace
+      </a>
+
+      <div class="auth__panel">
+        <div class="auth__heading">
+          <h1>Create your account</h1>
+          <p>Start buying or selling in under a minute.</p>
+        </div>
+
+        <!-- Fields and limits follow UserModel (backend/models/auth.py). -->
+        <form class="form" id="register-form" method="post">
+          <div data-form-alert role="alert" hidden></div>
+
+          <!-- The API only accepts "buyer" or "seller" here; admins are promoted on the server. -->
+          <fieldset class="field">
+            <legend class="field__label">I want to</legend>
+            <div class="choices">
+              <label class="choice">
+                <input type="radio" name="user_type" value="buyer" checked aria-describedby="user_type-error">
+                <span class="choice__body">
+                  <span class="choice__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#bag"/></svg>Buy</span>
+                  <span class="choice__text">Browse the catalog</span>
+                </span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="user_type" value="seller" aria-describedby="user_type-error">
+                <span class="choice__body">
+                  <span class="choice__title"><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#store"/></svg>Sell</span>
+                  <span class="choice__text">List products for buyers</span>
+                </span>
+              </label>
+            </div>
+            <p class="field__error" id="user_type-error" hidden></p>
+          </fieldset>
+
+          <div class="field">
+            <label class="field__label" for="username">Username</label>
+            <input class="input" id="username" name="username" type="text" autocomplete="username" minlength="3" maxlength="50" required aria-describedby="username-hint username-error">
+            <p class="field__hint" id="username-hint">3 to 50 characters.</p>
+            <p class="field__error" id="username-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required aria-describedby="email-error">
+            <p class="field__error" id="email-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="date_of_birth">Date of birth</label>
+            <input class="input" id="date_of_birth" name="date_of_birth" type="date" autocomplete="bday" min="1900-01-01" required aria-describedby="date_of_birth-error">
+            <p class="field__error" id="date_of_birth-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="password">Password</label>
+            <div class="input-group">
+              <input class="input" id="password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="password-hint password-error">
+              <button class="input-group__action" type="button" data-password-toggle aria-controls="password" aria-pressed="false" aria-label="Show password">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#eye"/></svg>
+              </button>
+            </div>
+            <p class="field__hint" id="password-hint">At least 8 characters.</p>
+            <p class="field__error" id="password-error" hidden></p>
+          </div>
+
+          <button class="button button--block" type="submit" data-busy-label="Creating account…" disabled>Create account</button>
+        </form>
+
+        <p class="auth__switch">Already have an account? <a href="/login/">Sign in</a></p>
+      </div>
+    </main>
+
+    <aside class="auth__aside">
+      <div class="showcase">
+        <p class="showcase__eyebrow">Marketplace</p>
+        <h2 class="showcase__title">Everything you need to buy and sell.</h2>
+        <ul class="showcase__list">
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#check"/></svg>List a product in under a minute</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#check"/></svg>Browse the catalog by category</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#check"/></svg>Separate workspaces for buyers, sellers and admins</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

@@ -5,7 +5,7 @@ from sqlalchemy import select
 from backend.sql.base import get_db
 from backend.sql.product import Category
 from backend.sql.users import User, UserType
-from backend.models.category import CategoryBase
+from backend.models.category import CategoryBase, CategoryResponse
 from backend.utils.auth_utils import get_current_user
 
 router = APIRouter(prefix='/category', tags=['category'])
@@ -35,3 +35,8 @@ def create_category(
     db.refresh(new_category)
 
     return new_category
+
+@router.get("/list", response_model=list[CategoryResponse], dependencies=[Depends(get_current_user)])
+def list_categories(db: Session = Depends(get_db)):
+    return db.scalars(select(Category).order_by(Category.name)).all()
+

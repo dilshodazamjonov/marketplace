@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from backend.sql import product, users  # noqa: F401 - registers the tables on Base
+from backend.sql import product, users , tokens # noqa: F401 - registers the tables on Base
 from backend.sql.base import Base
 
 # this is the Alembic Config object, which provides

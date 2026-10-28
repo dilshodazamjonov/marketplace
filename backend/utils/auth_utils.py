@@ -2,7 +2,7 @@ import os
 import jwt
 
 from uuid import UUID
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Cookie
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
@@ -19,6 +19,7 @@ password_hasher = PasswordHash.recommended()
 bearer_scheme = HTTPBearer(auto_error=False)
 
 def get_current_user(
+        access_token: str| None = Cookie(default=None),
         credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
         db: Session = Depends(get_db)
 ) -> User:
@@ -29,12 +30,14 @@ def get_current_user(
         headers={"WWW-Authenticate": "Bearer"}
     )
 
-    if credentials is None:
+    token = access_token or (credentials.credentials if credentials else None)
+
+    if token is None:
         raise credentials_exception
 
     try:
         payload = jwt.decode(
-            credentials.credentials, 
+            token,
             SECRET_KEY, 
             algorithms=[ALGORITHM], 
             options={"require": ["sub", "exp"]}
@@ -51,3 +54,4 @@ def get_current_user(
         raise credentials_exception
 
     return user
+

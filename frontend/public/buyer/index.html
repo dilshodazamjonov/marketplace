@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Catalog · Marketplace</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <script type="module" src="/js/pages/buyer.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="boot" id="page-status" role="status">
+    <span class="spinner" aria-hidden="true"></span>
+    <span class="visually-hidden">Loading…</span>
+  </div>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="app__body">
+      <main class="page" id="main">
+        <header class="page-header">
+          <div>
+            <h1>Catalog</h1>
+            <p>Browse everything sellers have listed.</p>
+          </div>
+        </header>
+
+        <div class="toolbar">
+          <label class="search">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#search"/></svg>
+            <input class="input" id="catalog-search" type="search" placeholder="Search products" aria-label="Search products" autocomplete="off">
+          </label>
+          <select class="select" id="catalog-category" aria-label="Filter by category" hidden></select>
+          <select class="select" id="catalog-sort" aria-label="Sort products">
+            <option value="newest">Newest first</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+          </select>
+          <p class="toolbar__count" id="catalog-count" aria-live="polite"></p>
+        </div>
+
+        <div id="catalog"></div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
